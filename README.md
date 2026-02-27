@@ -1,6 +1,6 @@
 # WhatsMiau Railway Template
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/G92IcM?referralCode=9uHSFr&utm_medium=integration&utm_source=template&utm_campaign=generic)
 
 Railway deployment template for [WhatsMiau](https://github.com/verbeux-ai/whatsmiau), a lightweight WhatsApp backend service built with Go using the Whatsmeow library.
 
