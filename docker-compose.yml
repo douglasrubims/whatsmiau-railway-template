@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  api:
+    container_name: whatsmiau_api
+    image: impedr029/whatsmiau:v0.5.0
+    restart: always
+    depends_on:
+      - redis
+      - postgres
+    ports:
+      - "8080:8080"
+    volumes:
+      - whatsmiau_data:/app/data
+    env_file:
+      - .env
+    environment:
+      - PORT=8080
+      - DIALECT_DB=postgres
+      - DB_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable
+      - REDIS_URL=redis://redis:6379/0
+
+  postgres:
+    container_name: whatsmiau_postgres
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-whatsmiau}
+      - POSTGRES_USER=${POSTGRES_USER:-whatsmiau}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-whatsmiau}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    container_name: whatsmiau_redis
+    image: redis:latest
+    restart: always
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+
+volumes:
+  whatsmiau_data:
+  postgres_data:
+  redis_data:
